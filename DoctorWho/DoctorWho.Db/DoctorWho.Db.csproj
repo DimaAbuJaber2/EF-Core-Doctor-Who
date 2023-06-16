@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DoctorWho\DoctorWho.csproj" />
+  </ItemGroup>
+
 </Project>
