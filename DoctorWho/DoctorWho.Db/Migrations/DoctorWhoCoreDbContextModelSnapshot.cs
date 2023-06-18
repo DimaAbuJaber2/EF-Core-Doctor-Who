@@ -119,6 +119,34 @@ namespace DoctorWho.Db.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DoctorWho.Db.DTO.CompanionSummary", b =>
+                {
+                    b.Property<string>("CompanionName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumAppearances")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView(null, (string)null);
+                });
+
+            modelBuilder.Entity("DoctorWho.Db.DTO.EnemySummary", b =>
+                {
+                    b.Property<string>("EnemyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumAppearances")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView(null, (string)null);
+                });
+
             modelBuilder.Entity("DoctorWho.Db.Doctor", b =>
                 {
                     b.Property<int>("DoctorId")

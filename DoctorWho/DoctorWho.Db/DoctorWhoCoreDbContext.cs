@@ -1,4 +1,5 @@
 ﻿
+using DoctorWho.Db.DTO;
 using Microsoft.EntityFrameworkCore;
 namespace DoctorWho.Db
 {
@@ -14,6 +15,8 @@ namespace DoctorWho.Db
         public DbSet<EpisodeCompanion> EpisodeCompanions { get; set; }
         public DbSet<EpisodeEnemy> EpisodeEnemies { get; set; }
         public DbSet<viewEpisodes> viewEpisodes { get; set; }
+        public string CallFnCompanions(int Id) => throw new NotSupportedException();
+        public string CallFnEnemies(int Id) => throw new NotSupportedException();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -111,6 +114,12 @@ namespace DoctorWho.Db
             );
 
             modelBuilder.Entity<viewEpisodes>().HasNoKey().ToView("viewEpisodes");
+        
+            modelBuilder.HasDbFunction(typeof(DoctorWhoCoreDbContext).GetMethod(nameof(CallFnCompanions), new[] { typeof(int) }))
+            .HasName("fnCompanions");
+
+            modelBuilder.HasDbFunction(typeof(DoctorWhoCoreDbContext).GetMethod(nameof(CallFnEnemies), new[] { typeof(int) }))
+            .HasName("fnEnemies");
 
         }
 
