@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,26 @@ namespace DoctorWho.Db.Repository
         public Episode GetEpisodeById(int episodeId)
         {
             return _dbContext.Episodes.FirstOrDefault(c => c.EpisodeId == episodeId);
+        }
+
+        public void AddEnemyToEpisode(int episodeId, EpisodeEnemy enemy)
+        {
+            var episode = _dbContext.Episodes.Include(e => e.EpisodeEnemies).FirstOrDefault(e => e.EpisodeId == episodeId);
+            if (episode != null)
+            {
+                episode.EpisodeEnemies.Add(enemy);
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public void AddCompanionToEpisode(int episodeId, EpisodeCompanion companion)
+        {
+            var episode = _dbContext.Episodes.Include(e => e.EpisodeCompanions).FirstOrDefault(e => e.EpisodeId == episodeId);
+            if (episode != null)
+            {
+                episode.EpisodeCompanions.Add(companion);
+                _dbContext.SaveChanges();
+            }
         }
     }
 }

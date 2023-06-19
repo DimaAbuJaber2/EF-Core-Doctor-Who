@@ -43,5 +43,10 @@ namespace DoctorWho.Db.Repository
         {
             return _dbContext.Doctors.FirstOrDefault(c => c.DoctorId == doctorId);
         }
+
+        public List<Doctor> GetAllDoctors()
+        {
+            return _dbContext.Doctors.ToList();
+        }
     }
 }

@@ -74,6 +74,36 @@ public class Program
 
         Console.WriteLine("-------------------------------------");
 
+        int episodeId = 1;
+        int enemyId = 1; 
+        var episodeEnemy = new EpisodeEnemy
+        {
+            EpisodeId = episodeId,
+            EnemyId = enemyId
+        };
+        episodeRepository.AddEnemyToEpisode(episodeId, episodeEnemy);
+
+        Console.WriteLine("-------------------------------------");
+        int comId = 1; 
+        var episodeCompanion = new EpisodeCompanion
+        {
+            EpisodeId = episodeId,
+            CompanionId = comId
+        };
+        episodeRepository.AddCompanionToEpisode(episodeId, episodeCompanion);
+
+        Console.WriteLine("-------------------------------------");
+        var doctors = doctorRepository.GetAllDoctors();
+        Console.WriteLine("List of Doctors:");
+        foreach (var doctor in doctors)
+        {
+            Console.WriteLine($"Doctor ID: {doctor.DoctorId}");
+            Console.WriteLine($"Doctor Name: {doctor.DoctorName}");
+            Console.WriteLine();
+        }
+
+
+
 
 
         Console.ReadLine();
