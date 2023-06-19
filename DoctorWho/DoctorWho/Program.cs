@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using DoctorWho.Db;
 using DoctorWho.Db.DTO;
+using DoctorWho.Db.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 namespace DoctorWho;
@@ -19,7 +20,63 @@ public class Program
         CallSummariseEpisodesProcedure(dbContext);
 
 
-         Console.ReadLine();
+        var companionRepository = new CompanionRepository(dbContext);
+        var enemyRepository = new EnemyRepository(dbContext);
+        var doctorRepository = new DoctorRepository(dbContext);
+        var authorRepository = new AuthorRepository(dbContext);
+        var episodeRepository = new EpisodeRepository(dbContext);
+
+        Console.WriteLine("-------------------------------------");
+
+        var newCompanion = new Companion
+        {
+            CompanionName = "New Companion Name2",
+            WhoPlayed = "Actor Name2"
+        };
+        int companionId = companionRepository.CreateCompanion(newCompanion);
+        Console.WriteLine($"New companion created with ID: {companionId}");
+
+        var existingCompanion = companionRepository.GetCompanionById(companionId);
+        if (existingCompanion != null)
+        {
+            // Update the companion properties
+            existingCompanion.CompanionName = "Updated Companion Name";
+            existingCompanion.WhoPlayed = "Updated Actor Name";
+            companionRepository.UpdateCompanion(existingCompanion);
+            Console.WriteLine("Companion updated successfully.");
+        }
+
+        // Delete a companion
+        companionRepository.DeleteCompanion(companionId);
+        Console.WriteLine("Companion deleted successfully.");
+
+        Console.WriteLine("-------------------------------------");
+
+
+        // Create an author
+        var newAuthor = new Author
+        {
+            AuthorName = "New Author Name"
+        };
+      int authorId= authorRepository.CreateAuthor(newAuthor);
+
+        // Update an author
+        var existingAuthor = authorRepository.GetAuthorById(authorId);
+        if (existingAuthor != null)
+        {
+            existingAuthor.AuthorName = "Updated Author Name";
+            authorRepository.UpdateAuthor(existingAuthor);
+        }
+
+        // Delete an author
+        authorRepository.DeleteAuthor(authorId);
+
+
+        Console.WriteLine("-------------------------------------");
+
+
+
+        Console.ReadLine();
 
 
     }
